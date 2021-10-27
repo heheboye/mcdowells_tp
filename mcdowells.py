@@ -39,7 +39,7 @@ def emp_in(emp):
 def emp_out(emp):
     f = open(f"Registro {custom_date}.txt", "a")
     f.write(f"OUT {raw_date} Encargad@ {emp} ${sum(total_sales)}\n")
-    f.write("#"*50)
+    f.write("#"*50+"\n")
     f.close()
 
 def reg_sale():
