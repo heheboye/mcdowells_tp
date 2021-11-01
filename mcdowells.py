@@ -14,41 +14,73 @@ headers = [["Cliente", "Fecha", "Combo S", "Combo D", "Combo T", "Flurby", "Tota
 rows = []
 total_sales = []
 
+# Current directory.
+cd = os.path.dirname(os.path.abspath(__file__))
+
+# Txt directory.
+txt_path = os.path.join(cd, "Txt")
+
+# Excel directory.
+excel_path = os.path.join(cd, "Excel")
+
 ### FUNCTIONS ###
 
+def clear_console():
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
+
 def verify(user_input):
-    while user_input == "":
-        print(f"""\n{white}El campo no puede estar vacio.
-        Intente nuevamente: """, end = "")
+    while user_input.isalpha() == False or user_input == "":
+        clear_console()
+        print(f"""\n{white}El campo no puede estar vacio y solo se aceptan letras.
+Intente nuevamente: """, end = "")
         user_input = input(f"{red}")
+    clear_console()
     return user_input
 
 def int_convert(user_input):
     while user_input.isdecimal() == False or user_input == "":
+        clear_console()
         print(f"""\n{white}El campo no puede estar vacio y solo se aceptan numeros enteros.
-        Intente nuevamente: """, end = "")
+Intente nuevamente: """, end = "")
         user_input = input(f"{red}")
     user_input = int(user_input)
+    clear_console()
     return user_input
 
 def emp_in(emp):
-    f = open(f"Registro {custom_date}.txt", "a")
-    f.write(f"IN {raw_date} Encargad@ {emp}\n")
-    f.close()
+    if os.path.exists(f"Txt/Registro {custom_date}.txt"):
+        f = open(f"Txt/Registro {custom_date}.txt", "a")
+        f.write(f"IN {raw_date} Encargad@ {emp}\n")
+        f.close()
+    else:
+        os.mkdir(txt_path)
+        f = open(f"Txt/Registro {custom_date}.txt", "a")
+        f.write(f"IN {raw_date} Encargad@ {emp}\n")
+        f.close()
     
 def emp_out(emp):
-    f = open(f"Registro {custom_date}.txt", "a")
-    f.write(f"OUT {raw_date} Encargad@ {emp} ${sum(total_sales)}\n")
-    f.write("#"*50+"\n")
-    f.close()
+    if os.path.exists(f"Txt/Registro {custom_date}.txt"):
+        f = open(f"Txt/Registro {custom_date}.txt", "a")
+        f.write(f"OUT {raw_date} Encargad@ {emp} ${sum(total_sales)}\n")
+        f.write("#"*50+"\n")
+        f.close()
+    else:
+        os.mkdir(txt_path)
+        f = open(f"Txt/Registro {custom_date}.txt", "a")
+        f.write(f"OUT {raw_date} Encargad@ {emp} ${sum(total_sales)}\n")
+        f.write("#"*50+"\n")
+        f.close()
 
 def reg_sale():
-    if os.path.exists(f"Registro {time.strftime('%d %m %Y')}.xlsx"):
-        wb = load_workbook(filename = f"Registro {time.strftime('%d %m %Y')}.xlsx")
+    if os.path.exists(f"Excel/Registro {time.strftime('%d %m %Y')}.xlsx"):
+        wb = load_workbook(filename = f"Excel/Registro {time.strftime('%d %m %Y')}.xlsx")
         ws = wb.active
         for row in rows:
             ws.append(row)
-        wb.save(f"Registro {time.strftime('%d %m %Y')}.xlsx")
+        wb.save(f"Excel/Registro {time.strftime('%d %m %Y')}.xlsx")
     else:
         wb = Workbook()
         ws = wb.active
@@ -56,13 +88,8 @@ def reg_sale():
             ws.append(head)
         for row in rows:
             ws.append(row)
-        wb.save(f"Registro {time.strftime('%d %m %Y')}.xlsx")
-
-def clear_console():
-    if os.name == "nt":
-        os.system("cls")
-    else:
-        os.system("clear")
+        os.mkdir(excel_path)
+        wb.save(f"Excel/Registro {time.strftime('%d %m %Y')}.xlsx")
 
 ### PRIMER MENU ###
 
