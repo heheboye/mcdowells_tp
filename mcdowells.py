@@ -5,8 +5,8 @@ import os
 
 colorama.init()
 
-white = "\x1b[1;37;40m" 
-red = "\x1b[1;31;222m"
+WHITE = "\x1b[1;37;40m"
+RED = "\x1b[1;31;222m"
 
 custom_date = time.strftime("%d %m %Y")
 raw_date = time.asctime()
@@ -34,18 +34,18 @@ def clear_console():
 def verify(user_input):
     while user_input.isalpha() == False or user_input == "":
         clear_console()
-        print(f"""\n{white}El campo no puede estar vacio y solo se aceptan letras.
+        print(f"""\n{WHITE}El campo no puede estar vacio y solo se aceptan letras.
 Intente nuevamente: """, end = "")
-        user_input = input(f"{red}")
+        user_input = input(f"{RED}")
     clear_console()
-    return user_input
+    return user_input.capitalize()
 
 def int_convert(user_input):
     while user_input.isdecimal() == False or user_input == "":
         clear_console()
-        print(f"""\n{white}El campo no puede estar vacio y solo se aceptan numeros enteros.
+        print(f"""\n{WHITE}El campo no puede estar vacio y solo se aceptan numeros enteros.
 Intente nuevamente: """, end = "")
-        user_input = input(f"{red}")
+        user_input = input(f"{RED}")
     user_input = int(user_input)
     clear_console()
     return user_input
@@ -99,16 +99,16 @@ def reg_sale():
 
 ### PRIMER MENU ###
 
-print(f"\n{white}Bienvenido a McDowell's\n", end = "")
+print(f"\n{WHITE}Bienvenido a McDowell's\n", end = "")
 print("\nIngrese su nombre encargad@: ", end = "")
-encargado = input(f"{red}")
+encargado = input(f"{RED}")
 encargado = verify(encargado)
 emp_in(encargado)
 
 ###################
 
 while True:
-    print(f"""{white}
+    print(f"""{WHITE}
 McDowell's
 Recuerda que siempre hay que recibir al cliente con una sonrisa :)
 
@@ -122,33 +122,33 @@ Recuerda que siempre hay que recibir al cliente con una sonrisa :)
     clear_console()
     if option == 1:
         clear_console()
-        print(f"{white}Nombre del cliente: ", end = "")
-        customer = input(f"{red}")
+        print(f"{WHITE}Nombre del cliente: ", end = "")
+        customer = input(f"{RED}")
         customer = verify(customer)
-        print(f"{white}Ingrese cantidad Combo S: ", end = "")
-        can_cs = input(f"{red}")
+        print(f"{WHITE}Ingrese cantidad Combo S: ", end = "")
+        can_cs = input(f"{RED}")
         can_cs = int_convert(can_cs)
-        print(f"{white}Ingrese cantidad Combo D: ", end = "")
-        can_cd = input(f"{red}")
+        print(f"{WHITE}Ingrese cantidad Combo D: ", end = "")
+        can_cd = input(f"{RED}")
         can_cd = int_convert(can_cd)
-        print(f"{white}Ingrese cantidad Combo T: ", end = "")
-        can_ct = input(f"{red}")
+        print(f"{WHITE}Ingrese cantidad Combo T: ", end = "")
+        can_ct = input(f"{RED}")
         can_ct = int_convert(can_ct)
-        print(f"{white}Ingrese cantidad Flurby: ", end = "")
-        can_p = input(f"{red}")
+        print(f"{WHITE}Ingrese cantidad Flurby: ", end = "")
+        can_p = input(f"{RED}")
         can_p = int_convert(can_p)
         total = (can_cs * 650) + (can_cd * 700) + (can_ct * 800) + (can_p * 250)
-        print(f"\n{white}Total $ {total}")
+        print(f"\n{WHITE}Total $ {total}")
         print(f"Abona con $ ", end = "")
-        pago = input(f"{red}")
+        pago = input(f"{RED}")
         pago = int_convert(pago)
         if (pago - total) < 0:
-            print(f"{red}{customer}{white} se olvidó la billetera. Transacción cancelada.")
+            print(f"{RED}{customer}{WHITE} se olvidó la billetera. Transacción cancelada.")
             time.sleep(3)
             clear_console()
             continue
         else:
-            print(f"{white}El vuelto de {red}{customer}{white} es de $ {red}{pago - total}")
+            print(f"{WHITE}El vuelto de {RED}{customer}{WHITE} es de $ {RED}{pago - total}")
             time.sleep(3)
             clear_console()
             total_sales.append(total)
@@ -158,9 +158,9 @@ Recuerda que siempre hay que recibir al cliente con una sonrisa :)
     if option == 2:
         emp_out(encargado)
         total_sales = []
-        print(f"\n{white}Bienvenido a McDowell's\n", end = "")
+        print(f"\n{WHITE}Bienvenido a McDowell's\n", end = "")
         print("\nIngrese su nombre encargad@: ", end = "")
-        encargado = input(f"{red}")
+        encargado = input(f"{RED}")
         encargado = verify(encargado)
         emp_in(encargado)
         clear_console()
