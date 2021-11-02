@@ -142,12 +142,19 @@ Recuerda que siempre hay que recibir al cliente con una sonrisa :)
         print(f"Abona con $ ", end = "")
         pago = input(f"{red}")
         pago = int_convert(pago)
-        clear_console()
-        print(f"{white}El vuelto de {red}{customer}{white} es de $ {red}{pago - total}")
-        total_sales.append(total)
-        rows.append([customer, raw_date, can_cs, can_cd, can_ct, can_p, total])
-        reg_sale()
-        rows = []
+        if (pago - total) < 0:
+            print(f"{red}{customer}{white} se olvidó la billetera. Transacción cancelada.")
+            time.sleep(3)
+            clear_console()
+            continue
+        else:
+            print(f"{white}El vuelto de {red}{customer}{white} es de $ {red}{pago - total}")
+            time.sleep(3)
+            clear_console()
+            total_sales.append(total)
+            rows.append([customer, raw_date, can_cs, can_cd, can_ct, can_p, total])
+            reg_sale()
+            rows = []
     if option == 2:
         emp_out(encargado)
         total_sales = []
