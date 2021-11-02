@@ -56,10 +56,12 @@ def emp_in(emp):
         f.write(f"IN {raw_date} Encargad@ {emp}\n")
         f.close()
     else:
-        os.mkdir(txt_path)
-        f = open(f"Txt/Registro {custom_date}.txt", "a")
-        f.write(f"IN {raw_date} Encargad@ {emp}\n")
-        f.close()
+        try:
+            os.mkdir(txt_path)
+        except FileExistsError:
+            f = open(f"Txt/Registro {custom_date}.txt", "a")
+            f.write(f"IN {raw_date} Encargad@ {emp}\n")
+            f.close()
     
 def emp_out(emp):
     if os.path.exists(f"Txt/Registro {custom_date}.txt"):
@@ -68,11 +70,13 @@ def emp_out(emp):
         f.write("#"*50+"\n")
         f.close()
     else:
-        os.mkdir(txt_path)
-        f = open(f"Txt/Registro {custom_date}.txt", "a")
-        f.write(f"OUT {raw_date} Encargad@ {emp} ${sum(total_sales)}\n")
-        f.write("#"*50+"\n")
-        f.close()
+        try:
+            os.mkdir(txt_path)
+        except FileExistsError:
+            f = open(f"Txt/Registro {custom_date}.txt", "a")
+            f.write(f"OUT {raw_date} Encargad@ {emp} ${sum(total_sales)}\n")
+            f.write("#"*50+"\n")
+            f.close()
 
 def reg_sale():
     if os.path.exists(f"Excel/Registro {time.strftime('%d %m %Y')}.xlsx"):
@@ -88,8 +92,10 @@ def reg_sale():
             ws.append(head)
         for row in rows:
             ws.append(row)
-        os.mkdir(excel_path)
-        wb.save(f"Excel/Registro {time.strftime('%d %m %Y')}.xlsx")
+        try:
+            os.mkdir(excel_path)
+        except FileExistsError:
+            wb.save(f"Excel/Registro {time.strftime('%d %m %Y')}.xlsx")
 
 ### PRIMER MENU ###
 
